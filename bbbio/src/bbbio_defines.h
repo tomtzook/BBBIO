@@ -27,13 +27,13 @@
 
 #define BBBIO_GPIO0_ADDR	        (0x44e07000)
 #define BBBIO_GPIO1_ADDR 	        (0x4804c000)
-#define BBBIO_GPIO2_ADDR 	        (0x481AC000)
-#define BBBIO_GPIO3_ADDR 	        (0x481AE000)
-#define BBBIO_GPIOX_LEN 	        (0x1000)
+#define BBBIO_GPIO2_ADDR 	        (0x481ac000)
+#define BBBIO_GPIO3_ADDR 	        (0x481ae000)
+#define BBBIO_GPIO_LEN 	            (0x1000)
 
 #define BBBIO_GPIO_OE			    (0x134)
 #define BBBIO_GPIO_DATAIN 		    (0x138)
-#define BBBIO_GPIO_DATAOUT 		    (0x13C)
+#define BBBIO_GPIO_DATAOUT 		    (0x13c)
 #define BBBIO_GPIO_CLEARDATAOUT		(0x190)
 #define BBBIO_GPIO_SETDATAOUT		(0x194)
 

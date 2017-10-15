@@ -62,10 +62,6 @@ const unsigned int gpio_addr_offset[] = {BBBIO_GPIO0_ADDR, BBBIO_GPIO1_ADDR, BBB
 
 int memh;
 
-volatile unsigned int* cm_ptr = NULL;
-volatile unsigned int* cm_per_addr = NULL;
-volatile unsigned int* cm_wkup_addr = NULL;
-
 volatile unsigned int* gpio_addr[4] = {NULL, NULL, NULL, NULL};
 
 /***********************************************************************\
@@ -89,18 +85,9 @@ int bbbio_init(){
 		return -1;
 	}
 
-	cm_per_addr = mmap(0, BBBIO_CM_PER_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, memh, BBBIO_CM_PER_ADDR);
-	if(cm_per_addr == MAP_FAILED)
-    	{
-#ifdef BBBIO_DEBUG
-		printf("BBBIO failed mapping control module per addr: %s \n" ,strerror(errno));
-#endif
-		return -1;
-	}
-
 	int i;
 	for (i = 0; i < 4; ++i) {
-		gpio_addr[i] = (volatile unsigned int*)mmap(0, BBBIO_GPIOX_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, memh,
+		gpio_addr[i] = (volatile unsigned int*)mmap(0, BBBIO_GPIO_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, memh,
 													gpio_addr_offset[i]);
 
 		if(gpio_addr[i] == MAP_FAILED) {
@@ -109,14 +96,6 @@ int bbbio_init(){
 #endif
 			return -1;
 		}
-	}
-
-	cm_ptr = mmap(0, BBBIO_CONTROL_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, memh, BBBIO_CONTROL_MODULE);
-	if(cm_ptr == MAP_FAILED) {
-#ifdef BBBIO_DEBUG
-		printf("BBBIO failed mapping control module: %s \n", i, strerror(errno));
-#endif
-		return -1;
 	}
 
 #ifdef BBBIO_DEBUG
@@ -202,6 +181,10 @@ void bbbio_gpio_low(char header, char pin){
 }
 
 char bbbio_gpio_get(char header, char pin){
+#ifdef BBBIO_DEBUG
+		printf("BBBIO get: (%d, %d) -> (%d, %d) \n", header, pin, port_set[header][pin - 1], port_id_set[header][pin - 1]);
+#endif
+
 	return (HWREG(HWADD(gpio_addr[port_set[header][pin - 1]], BBBIO_GPIO_DATAIN)) & (1 << (port_id_set[header][pin - 1]))) != 0;
 }
 
