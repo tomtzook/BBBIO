@@ -45,7 +45,7 @@ void bbbio_free();
 char bbbio_gpio_valid(char header, char pin);
 
 signed char bbbio_gpio_module(char header, char pin);
-signed char bbbio_gpio_pinnum(char header, char pin);
+unsigned char bbbio_gpio_pin(char header, char pin);
 
 /***********************************************************************\
  * GPIO IO

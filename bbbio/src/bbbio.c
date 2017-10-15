@@ -84,7 +84,7 @@ int bbbio_init(){
 
 	if(memh <= 0){
 #ifdef BBBIO_DEBUG
-		printf("BBBIO failed to map '/dev/mem/' (memh <= 0): %s. Try running with sudo \n", strerror(errno));
+		printf("BBBIO failed to map '/dev/mem' (memh <= 0): %s. Try running with sudo \n", strerror(errno));
 #endif
 		return -1;
 	}
@@ -136,7 +136,7 @@ void bbbio_free(){
 \***********************************************************************/
 
 char bbbio_gpio_valid(char header, char pin){
-	return bbbio_gpio_module(header, pin) >= 0 && bbbio_gpio_pinnum(header, pin) > 0;
+	return bbbio_gpio_module(header, pin) >= 0 && bbbio_gpio_pin(header, pin) > 0;
 }
 
 signed char bbbio_gpio_module(char header, char pin){
@@ -144,9 +144,9 @@ signed char bbbio_gpio_module(char header, char pin){
 		return -1;
 	return port_set[header][pin - 1];
 }
-signed char bbbio_gpio_pinnum(char header, char pin){
+unsigned char bbbio_gpio_pin(char header, char pin){
 	if(header < 0 || header > 1 || pin < 1 || pin > 46)
-		return -1;
+		return 0;
 	return port_id_set[header][pin - 1];
 }
 
@@ -165,14 +165,14 @@ int bbbio_gpio_setdir(char header, char pin, char dir){
 		printf("BBBIO GPIO output: (%d, %d) \n", header, pin);
 #endif
 
-		HWREG(gpio_addr[port_set[header][pin - 1]] + BBBIO_GPIO_OE) &= ~(1 << (port_id_set[header][pin - 1]));
+		HWREG(HWADD(gpio_addr[port_set[header][pin - 1]], BBBIO_GPIO_OE)) &= ~(1 << (port_id_set[header][pin - 1]));
 	}
 	else if (dir == BBB_DIR_INPUT) {
 #ifdef BBBIO_DEBUG
 		printf("BBBIO GPIO input: (%d, %d) \n", header, pin);
 #endif
 
-		HWREG(gpio_addr[port_set[header][pin - 1]] + BBBIO_GPIO_OE) |= (1 << (port_id_set[header][pin - 1]));
+		HWREG(HWADD(gpio_addr[port_set[header][pin - 1]], BBBIO_GPIO_OE)) |= (1 << (port_id_set[header][pin - 1]));
 	}
 
 	return 0;
@@ -191,18 +191,18 @@ void bbbio_gpio_high(char header, char pin){
 		printf("BBBIO high: (%d, %d) -> (%d, %d) \n", header, pin, port_set[header][pin - 1], port_id_set[header][pin - 1]);
 #endif
 
-	HWREG(gpio_addr[port_set[header][pin - 1]] + BBBIO_GPIO_SETDATAOUT) = (1 << (port_id_set[header][pin - 1]));
+	HWREG(HWADD(gpio_addr[port_set[header][pin - 1]], BBBIO_GPIO_SETDATAOUT)) = (1 << (port_id_set[header][pin - 1]));
 }
 void bbbio_gpio_low(char header, char pin){
 #ifdef BBBIO_DEBUG
 		printf("BBBIO low: (%d, %d) -> (%d, %d) \n", header, pin, port_set[header][pin - 1], port_id_set[header][pin - 1]);
 #endif
 
-	HWREG(gpio_addr[port_set[header][pin - 1]] + BBBIO_GPIO_CLEARDATAOUT) = (1 << (port_id_set[header][pin - 1]));
+	HWREG(HWADD(gpio_addr[port_set[header][pin - 1]], BBBIO_GPIO_CLEARDATAOUT)) = (1 << (port_id_set[header][pin - 1]));
 }
 
 char bbbio_gpio_get(char header, char pin){
-	return (HWREG(gpio_addr[port_set[header][pin - 1]] + BBBIO_GPIO_DATAIN) & (1 << (port_id_set[header][pin - 1]))) != 0;
+	return (HWREG(HWADD(gpio_addr[port_set[header][pin - 1]], BBBIO_GPIO_DATAIN)) & (1 << (port_id_set[header][pin - 1]))) != 0;
 }
 
 
