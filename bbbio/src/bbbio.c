@@ -17,6 +17,8 @@
 #include <bbbio.h>
 
 #include "bbbio_defines.h"
+#include "bbbio_global.h"
+#include "bbbio_pwmss.h"
 
 /***********************************************************************\
  * GPIO PIN DATA
@@ -60,7 +62,10 @@ const unsigned int gpio_addr_offset[] = {BBBIO_GPIO0_ADDR, BBBIO_GPIO1_ADDR, BBB
  * GLOBAL VARS
 \***********************************************************************/
 
-int memh;
+int memh = 0;
+
+volatile unsigned int* cm_addr = NULL;
+volatile unsigned int* cm_per_addr = NULL;
 
 volatile unsigned int* gpio_addr[4] = {NULL, NULL, NULL, NULL};
 
@@ -73,7 +78,7 @@ int bbbio_init(){
 #ifdef BBBIO_DEBUG
 		printf("BBBIO already initialized (memh != 0)\n");
 #endif
-		return -1;
+		return 1;
 	}
 
 	memh = open("/dev/mem", O_RDWR);
@@ -82,11 +87,21 @@ int bbbio_init(){
 #ifdef BBBIO_DEBUG
 		printf("BBBIO failed to map '/dev/mem' (memh <= 0): %s. Try running with sudo \n", strerror(errno));
 #endif
-		return -1;
+		return 1;
 	}
 
-	int i;
-	for (i = 0; i < 4; ++i) {
+	cm_per_addr = mmap(0, BBBIO_CM_PER_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, memh, BBBIO_CM_PER_ADDR);
+	if(cm_per_addr == MAP_FAILED)
+    	{
+#ifdef BBBIO_DEBUG
+		printf("BBBIO failed to map control module per address: %s \n", strerror(errno));
+#endif
+		return 1;
+	}
+
+
+	int err = 0;
+	for (int i = 0; i < 4; ++i) {
 		gpio_addr[i] = (volatile unsigned int*)mmap(0, BBBIO_GPIO_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, memh,
 													gpio_addr_offset[i]);
 
@@ -94,9 +109,24 @@ int bbbio_init(){
 #ifdef BBBIO_DEBUG
 			printf("BBBIO failed mapping GPIO %d: %s \n", i, strerror(errno));
 #endif
-			return -1;
+			err = 1;
+			break;
 		}
 	}
+
+	if(err){
+		return 1;
+	}
+
+	cm_addr = mmap(0, BBBIO_CONTROL_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, memh, BBBIO_CONTROL_MODULE);
+	if(cm_addr == MAP_FAILED) {
+#ifdef BBBIO_DEBUG
+		printf("BBBIO failed to map control module: %s \n", strerror(errno));
+#endif
+		return 1;
+	}
+
+	bbbio_pwmss_init();
 
 #ifdef BBBIO_DEBUG
 	printf("BBBIO init complete \n");
@@ -106,7 +136,30 @@ int bbbio_init(){
 }
 void bbbio_free(){
 	if (memh) {
+		bbbio_pwmss_free();
+
+		if(cm_addr != NULL){
+			munmap((void*)cm_addr, BBBIO_CONTROL_LEN);
+			cm_addr = NULL;
+		}
+		if(cm_per_addr != NULL){
+			munmap((void*)cm_per_addr, BBBIO_CM_PER_LEN);
+			cm_per_addr = NULL;
+		}
+
+		for (int i = 0; i < 4; ++i) {
+			if(gpio_addr[i] != NULL){
+				munmap((void*)gpio_addr, BBBIO_GPIO_LEN);
+				gpio_addr[i] = NULL;
+			}
+		}
+
 		close(memh);
+		memh = 0;
+
+#ifdef BBBIO_DEBUG
+		printf("BBBIO PWMSS shutdown complete \n");
+#endif
 	}
 }
 
