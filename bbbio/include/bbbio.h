@@ -1,60 +1,23 @@
 #ifndef BBBIO_H_
 #define BBBIO_H_
 
-/***********************************************************************\
- * MACROS
-\***********************************************************************/
-
-#define BBB_DIR_OUTPUT               (1)
-#define BBB_DIR_INPUT                (0)
-
-#define BBB_GPIO_HIGH                (1)
-#define BBB_GPIO_LOW                 (0)
-
-#define BBB_HEADER_PIN_COUNT         (46)
-
-#define BBB_P8_HEADER                (0)
-#define BBB_P9_HEADER                (1)
-
-#define BBB_PWMSS0                   (0)
-#define BBB_PWMSS1                   (1)
-#define BBB_PWMSS2                   (2)
-
-/***********************************************************************\
- * FUNCTIONS
-\***********************************************************************/
+#include "bbbio_rc.h"
+#include "bbbio_gpio_consts.h"
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
-/***********************************************************************\
- * INIT
-\***********************************************************************/
+typedef struct bbbio {
+    int mem_fd;
 
-int bbbio_init();
-void bbbio_free();
+    volatile unsigned int* cm_addr;
+    volatile unsigned int* cm_per_addr;
+    volatile unsigned int* gpio_addr[GPIO_MODULES_COUNT];
+} bbbio_t;
 
-/***********************************************************************\
- * GPIO DATA
-\***********************************************************************/
-
-char bbbio_gpio_valid(char header, char pin);
-
-signed char bbbio_gpio_module(char header, char pin);
-unsigned char bbbio_gpio_pin(char header, char pin);
-
-/***********************************************************************\
- * GPIO IO
-\***********************************************************************/
-
-int bbbio_gpio_setdir(char header, char pin, char dir);
-
-void bbbio_gpio_set(char header, char pin, char value);
-void bbbio_gpio_high(char header, char pin);
-void bbbio_gpio_low(char header, char pin);
-
-char bbbio_gpio_get(char header, char pin);
+bbbio_rc_t bbbio_init(bbbio_t* bbbio);
+void bbbio_free(bbbio_t* bbbio);
 
 #ifdef __cplusplus
 }

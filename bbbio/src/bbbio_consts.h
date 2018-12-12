@@ -1,19 +1,5 @@
-#ifndef BBBIO_DEFINES_H_
-#define BBBIO_DEFINES_H_
-
-/***********************************************************************\
- * GENERAL
-\***********************************************************************/
-
-#define BBBIO_DEBUG
-
-/***********************************************************************\
- * HARDWARE REGISTERS
-\***********************************************************************/
-
-#define HWREG(x)                    (*((volatile unsigned int* )(x)))
-#define HWREGH(x)                   (*((volatile unsigned short* )(x)))
-#define HWADD(x, y)                 (((void*)x) + y)
+#ifndef BBBIO_CONSTS_H
+#define BBBIO_CONSTS_H
 
 /***********************************************************************\
  * GPIO
@@ -82,5 +68,4 @@
 #define BBBIO_CM_EPWMSS1_CLKCTRL	(0xcc)
 #define BBBIO_CM_EPWMSS2_CLKCTRL	(0xd8)
 
-
-#endif /* BBBIO_DEFINES_H_ */
+#endif //BBBIO_CONSTS_H
