@@ -1,12 +1,5 @@
-/*
- * bbbio.h
- *
- *  Created on: Oct 14, 2017
- *      Author: root
- */
-
-#ifndef BBBIO_BBBIO_H_
-#define BBBIO_BBBIO_H_
+#ifndef BBBIO_H_
+#define BBBIO_H_
 
 /***********************************************************************\
  * MACROS
@@ -67,4 +60,4 @@ char bbbio_gpio_get(char header, char pin);
 }
 #endif
 
-#endif /* BBBIO_BBBIO_H_ */
+#endif /* BBBIO_H_ */

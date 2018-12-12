@@ -1,12 +1,5 @@
-/*
- * bbbio_defines.h
- *
- *  Created on: Oct 15, 2017
- *      Author: root
- */
-
-#ifndef BBBIO_BBBIO_DEFINES_H_
-#define BBBIO_BBBIO_DEFINES_H_
+#ifndef BBBIO_DEFINES_H_
+#define BBBIO_DEFINES_H_
 
 /***********************************************************************\
  * GENERAL
@@ -90,4 +83,4 @@
 #define BBBIO_CM_EPWMSS2_CLKCTRL	(0xd8)
 
 
-#endif /* BBBIO_BBBIO_DEFINES_H_ */
+#endif /* BBBIO_DEFINES_H_ */

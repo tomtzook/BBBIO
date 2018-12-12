@@ -1,10 +1,3 @@
-/*
- * bbbio.c
- *
- *  Created on: Oct 14, 2017
- *      Author: root
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

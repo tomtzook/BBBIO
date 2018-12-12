@@ -1,10 +1,3 @@
-/*
- * bbbio_pwmss.c
- *
- *  Created on: Oct 15, 2017
- *      Author: root
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h>

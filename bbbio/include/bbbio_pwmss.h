@@ -1,12 +1,5 @@
-/*
- * bbbio_pwmss.h
- *
- *  Created on: Oct 15, 2017
- *      Author: root
- */
-
-#ifndef BBBIO_BBBIO_PWMSS_H_
-#define BBBIO_BBBIO_PWMSS_H_
+#ifndef BBBIO_PWMSS_H_
+#define BBBIO_PWMSS_H_
 
 /***********************************************************************\
  * FUNCTIONS
@@ -40,4 +33,4 @@ int bbbio_pwmss_settings(char module_id, float frequency, float dutyA, float dut
 }
 #endif
 
-#endif /* BBBIO_BBBIO_PWMSS_H_ */
+#endif /* BBBIO_PWMSS_H_ */
