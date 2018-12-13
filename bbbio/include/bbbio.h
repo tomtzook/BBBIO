@@ -8,7 +8,7 @@
 extern "C"{
 #endif
 
-typedef struct bbbio {
+typedef struct bbbio_context {
     int mem_fd;
 
     volatile unsigned int* cm_addr;
