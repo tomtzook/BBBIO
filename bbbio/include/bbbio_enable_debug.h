@@ -1,0 +1,6 @@
+#ifndef BBBIO_ENABLE_DEBUG_H
+#define BBBIO_ENABLE_DEBUG_H
+
+#define BBBIO_DEBUG
+
+#endif //BBBIO_ENABLE_DEBUG_H

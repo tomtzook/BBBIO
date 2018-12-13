@@ -1,6 +1,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
+// include this to enable debug prints
+#include <bbbio_enable_debug.h>
+
 #include <bbbio.h>
 #include <bbbio_gpio.h>
 
