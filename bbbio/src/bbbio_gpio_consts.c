@@ -1,9 +1,9 @@
 #include "bbbio_consts.h"
 #include "bbbio_gpio_consts.h"
 
-const unsigned int gpio_addr_offset[GPIO_MODULES_COUNT] = {BBBIO_GPIO0_ADDR, BBBIO_GPIO1_ADDR, BBBIO_GPIO2_ADDR, BBBIO_GPIO3_ADDR};
+const unsigned int bbb_gpio_addr_offset[BBB_GPIO_MODULES_COUNT] = {BBBIO_GPIO0_ADDR, BBBIO_GPIO1_ADDR, BBBIO_GPIO2_ADDR, BBBIO_GPIO3_ADDR};
 
-const signed char port_set[2][46] = {
+const signed char bbb_module_mapping[2][46] = {
         {
                 -1, -1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, 1, 1,
                 0, 2, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0,
@@ -15,7 +15,7 @@ const signed char port_set[2][46] = {
                 -1, -1, -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1
         }
 };
-const unsigned char port_id_set[2][46] = {
+const unsigned char bbb_pin_mapping[2][46] = {
         {
                 0, 0, 6, 7, 2,	3, 2, 3,
                 5, 4, 13, 12, 23, 26, 15,
