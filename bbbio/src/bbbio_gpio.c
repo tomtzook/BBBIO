@@ -7,8 +7,8 @@
 #include <bbbio_gpio.h>
 
 
-#define GPIO_MODULE(header, pin) bbb_module_mapping[header][pin - 1]
-#define GPIO_PIN(header, pin) bbb_pin_mapping[header][pin - 1]
+#define GPIO_MODULE(header, pin) bbbio_module_mapping[header][pin - 1]
+#define GPIO_PIN(header, pin) bbbio_pin_mapping[header][pin - 1]
 
 #define CHECK_VALID_GPIO(pin) \
     if (!bbbio_gpio_valid(pin)) { \

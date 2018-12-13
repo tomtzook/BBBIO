@@ -5,8 +5,8 @@
  * GPIO
 \***********************************************************************/
 
-#define BBBIO_GPIO_MODULES_COUNT (4)
-#define BBBIO_GPIO_HEADERS_COUNT (2)
+#define BBBIO_GPIO_MODULES_COUNT    (4)
+#define BBBIO_GPIO_HEADERS_COUNT    (2)
 #define BBBIO_GPIO_HEADER_PIN_COUNT (46)
 
 #define BBBIO_GPIO0_ADDR	        (0x44e07000)
@@ -29,6 +29,9 @@
 /***********************************************************************\
  * PWMSS
 \***********************************************************************/
+
+#define BBBIO_PWMSS_MODULES_COUNT      (3)
+#define BBBIO_PWMSS_MODULE_PIN_COUNT   (2)
 
 #define BBBIO_PWMSS0_ADDR	        (0x48300000)
 #define BBBIO_PWMSS1_ADDR	        (0x48302000)

@@ -10,7 +10,10 @@
 #include <bbbio.h>
 
 #include "bbbio_gpio_consts.h"
+#include "bbbio_pwmss_consts.h"
+#include "bbbio_pwmss_ctrl.h"
 #include "bbbio_util.h"
+#include "hw.h"
 
 
 #define GOTO_ON_NO_SUCCESS(value, error_goto, error_msg) \
@@ -30,7 +33,7 @@ static bbbio_rc_t bbbio_gpio_init(bbbio_t* bbbio) {
 	bbbio_rc_t return_code = SUCCESS;
 
 	for (size_t i = 0; i < BBBIO_GPIO_MODULES_COUNT; ++i) {
-		bbbio->gpio_module_addr[i] = mmap(0, BBBIO_GPIO_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, bbbio->mem_fd, bbb_gpio_addr_offset[i]);
+		bbbio->gpio_module_addr[i] = mmap(0, BBBIO_GPIO_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, bbbio->mem_fd, bbbio_gpio_addr_offset[i]);
 		ERROR_MAP_FAILED(bbbio->gpio_module_addr[i], free_gpio, return_code, EMAP, "BBBIO failed to map gpio %zu: %s \n", i, strerror(errno));
 	}
 
@@ -41,6 +44,29 @@ free_gpio:
 static void bbbio_gpio_free(bbbio_t* bbbio) {
 	for (size_t i = 0; i < BBBIO_GPIO_MODULES_COUNT; ++i) {
 		MUNMAP(bbbio->gpio_module_addr[i], BBBIO_GPIO_LEN);
+	}
+}
+
+static bbbio_rc_t bbbio_pwmss_init(bbbio_t* bbbio) {
+	bbbio_rc_t return_code = SUCCESS;
+
+	for (size_t i = 0; i < BBBIO_PWMSS_MODULES_COUNT; ++i) {
+		bbbio->pwmss_module_addr[i] = mmap(0, BBBIO_PWMSS_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, bbbio->mem_fd, bbbio_pwmss_addr_offset[i]);
+		ERROR_MAP_FAILED(bbbio->pwmss_module_addr[i], free_pwmss, return_code, EMAP, "BBBIO failed to map pwmss %zu: %s \n", i, strerror(errno));
+
+		bbbio->epwm_module_addr[i] = HWADD(bbbio->pwmss_module_addr[i], BBBIO_PWMSS_EPWM_OFFSET);
+        return_code = bbbio_module_clk_enable(bbbio, i);
+        GOTO_ON_NO_SUCCESS(return_code, free_pwmss, "BBBIO failed to enable PWMSS module clock");
+	}
+
+free_pwmss:
+	return return_code;
+}
+
+static void bbbio_pwmss_free(bbbio_t* bbbio) {
+	for (size_t i = 0; i < BBBIO_PWMSS_MODULES_COUNT; ++i) {
+		MUNMAP(bbbio->pwmss_module_addr[i], BBBIO_PWMSS_LEN);
+		bbbio->epwm_module_addr[i] = 0;
 	}
 }
 
@@ -67,6 +93,9 @@ bbbio_rc_t bbbio_init(bbbio_t* bbbio) {
 	return_code = bbbio_gpio_init(bbbio);
 	GOTO_ON_NO_SUCCESS(return_code, free_init, "BBBIO failed to init GPIO");
 
+	return_code = bbbio_pwmss_init(bbbio);
+	GOTO_ON_NO_SUCCESS(return_code, free_init, "BBBIO failed to init PWMSS");
+
 	return SUCCESS;
 free_init:
 	bbbio_free(bbbio);
@@ -74,6 +103,7 @@ free_init:
 }
 
 void bbbio_free(bbbio_t* bbbio) {
+	bbbio_pwmss_free(bbbio);
 	bbbio_gpio_free(bbbio);
 
 	MUNMAP(bbbio->cm_addr, BBBIO_CONTROL_LEN);

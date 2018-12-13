@@ -1,9 +1,9 @@
 #include "bbbio_consts.h"
 #include "bbbio_gpio_consts.h"
 
-const __off_t bbb_gpio_addr_offset[BBBIO_GPIO_MODULES_COUNT] = {BBBIO_GPIO0_ADDR, BBBIO_GPIO1_ADDR, BBBIO_GPIO2_ADDR, BBBIO_GPIO3_ADDR};
+const __off_t bbbio_gpio_addr_offset[BBBIO_GPIO_MODULES_COUNT] = {BBBIO_GPIO0_ADDR, BBBIO_GPIO1_ADDR, BBBIO_GPIO2_ADDR, BBBIO_GPIO3_ADDR};
 
-const signed char bbb_module_mapping[BBBIO_GPIO_HEADERS_COUNT][BBBIO_GPIO_HEADER_PIN_COUNT] = {
+const signed char bbbio_module_mapping[BBBIO_GPIO_HEADERS_COUNT][BBBIO_GPIO_HEADER_PIN_COUNT] = {
         {
                 -1, -1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, 1, 1,
                 0, 2, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0,
@@ -15,7 +15,7 @@ const signed char bbb_module_mapping[BBBIO_GPIO_HEADERS_COUNT][BBBIO_GPIO_HEADER
                 -1, -1, -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1
         }
 };
-const unsigned char bbb_pin_mapping[BBBIO_GPIO_HEADERS_COUNT][BBBIO_GPIO_HEADER_PIN_COUNT] = {
+const unsigned char bbbio_pin_mapping[BBBIO_GPIO_HEADERS_COUNT][BBBIO_GPIO_HEADER_PIN_COUNT] = {
         {
                 0, 0, 6, 7, 2,	3, 2, 3,
                 5, 4, 13, 12, 23, 26, 15,

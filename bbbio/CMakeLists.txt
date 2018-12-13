@@ -11,17 +11,23 @@ set(BBBIO_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(BBBIO_HEADERS
         include/bbbio.h
         include/bbbio_gpio.h
+        include/bbbio_pwmss.h
         include/bbbio_debug.h
         include/bbbio_rc.h
         include/bbbio_consts.h
         src/bbbio_gpio_consts.h
+        src/bbbio_pwmss_consts.h
+        src/bbbio_pwmss_ctrl.h
         src/bbbio_util.h
         src/hw.h)
 
 set(BBBIO_SOURCES
         src/bbbio.c
         src/bbbio_gpio.c
+        src/bbbio_pwmss.c
         src/bbbio_gpio_consts.c
+        src/bbbio_pwmss_consts.c
+        src/bbbio_pwmss_ctrl.c
         )
 
 add_library(bbbio
