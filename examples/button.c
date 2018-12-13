@@ -15,20 +15,23 @@ int main(){
     const bbbio_gpio_header_t header = BBB_P8_HEADER;
     const bbbio_gpio_pin_t pin = 8;
 
-    // setting pin to output
-    bbbio_gpio_setdir(&bbbio, header, pin, BBB_DIR_OUTPUT);
+    // setting pin to input
+    bbbio_gpio_setdir(&bbbio, header, pin, BBB_DIR_INPUT);
 
-    // settings pin output to high
-    bbbio_gpio_set(&bbbio, header, pin, BBB_GPIO_HIGH);
+    // reading value from button
+    bbbio_gpio_value_t button_value;
+    if (bbbio_gpio_get(&bbbio, header, pin, &button_value) != SUCCESS) {
+        printf("error getting pin value \n");
+        goto free;
+    }
 
-    // sleep for 2 seconds
-    sleep(2);
+    printf("button value: %d \n", button_value);
 
-    // settings pin output to low
-    bbbio_gpio_set(&bbbio, header, pin, BBB_GPIO_LOW);
 
+free:
     // freeing the BBBIO context, releasing resources
     bbbio_free(&bbbio);
 
-	return 0;
+    return 0;
 }
+
