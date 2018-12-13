@@ -13,6 +13,7 @@ typedef struct bbbio_context {
 
     volatile unsigned int* cm_addr;
     volatile unsigned int* cm_per_addr;
+
     volatile unsigned int* gpio_module_addr[BBBIO_GPIO_MODULES_COUNT];
 } bbbio_t;
 
