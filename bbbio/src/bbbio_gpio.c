@@ -15,11 +15,11 @@
     }
 
 
-static char bbbio_gpio_valid(pin_t pin){
+static char bbbio_gpio_valid(bbbio_gpio_pin_t pin){
     return pin > 0 && pin <= 46;
 }
 
-bbbio_rc_t bbbio_gpio_setdir(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin, bbbio_gpio_dir_t dir) {
+bbbio_rc_t bbbio_gpio_setdir(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin, bbbio_gpio_dir_t dir) {
     CHECK_VALID_GPIO(pin);
 
     signed char module = GPIO_MODULE(header, pin);
@@ -37,7 +37,7 @@ bbbio_rc_t bbbio_gpio_setdir(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t p
     return SUCCESS;
 }
 
-bbbio_rc_t bbbio_gpio_set(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin, bbbio_gpio_value_t value) {
+bbbio_rc_t bbbio_gpio_set(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin, bbbio_gpio_value_t value) {
     switch (value) {
         case BBB_GPIO_HIGH: {
             return bbbio_gpio_high(bbbio, header, pin);
@@ -51,7 +51,7 @@ bbbio_rc_t bbbio_gpio_set(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin,
     return EARG;
 }
 
-bbbio_rc_t bbbio_gpio_high(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin) {
+bbbio_rc_t bbbio_gpio_high(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin) {
     CHECK_VALID_GPIO(pin);
 
     signed char module = GPIO_MODULE(header, pin);
@@ -60,7 +60,7 @@ bbbio_rc_t bbbio_gpio_high(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin
     HWREG(HWADD(bbbio->gpio_addr[module], BBBIO_GPIO_SETDATAOUT)) = (1u << module_pin);
 }
 
-bbbio_rc_t bbbio_gpio_low(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin) {
+bbbio_rc_t bbbio_gpio_low(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin) {
     CHECK_VALID_GPIO(pin);
 
     signed char module = GPIO_MODULE(header, pin);
@@ -69,7 +69,7 @@ bbbio_rc_t bbbio_gpio_low(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin)
     HWREG(HWADD(bbbio->gpio_addr[module], BBBIO_GPIO_CLEARDATAOUT)) = (1u << module_pin);
 }
 
-bbbio_rc_t bbbio_gpio_get(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin, bbbio_gpio_value_t *value) {
+bbbio_rc_t bbbio_gpio_get(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin, bbbio_gpio_value_t *value) {
     CHECK_VALID_GPIO(pin);
 
     signed char module = GPIO_MODULE(header, pin);

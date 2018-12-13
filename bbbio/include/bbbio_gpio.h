@@ -23,15 +23,15 @@ typedef enum bbbio_gpio_dir {
     BBB_DIR_OUTPUT = 1
 } bbbio_gpio_dir_t;
 
-typedef char pin_t;
+typedef char bbbio_gpio_pin_t;
 
-bbbio_rc_t bbbio_gpio_setdir(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin, bbbio_gpio_dir_t dir);
+bbbio_rc_t bbbio_gpio_setdir(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin, bbbio_gpio_dir_t dir);
 
-bbbio_rc_t bbbio_gpio_set(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin, bbbio_gpio_value_t value);
-bbbio_rc_t bbbio_gpio_high(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin);
-bbbio_rc_t bbbio_gpio_low(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin);
+bbbio_rc_t bbbio_gpio_set(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin, bbbio_gpio_value_t value);
+bbbio_rc_t bbbio_gpio_high(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin);
+bbbio_rc_t bbbio_gpio_low(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin);
 
-bbbio_rc_t bbbio_gpio_get(bbbio_t* bbbio, bbbio_gpio_header_t header, pin_t pin, bbbio_gpio_value_t *value);
+bbbio_rc_t bbbio_gpio_get(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin, bbbio_gpio_value_t *value);
 
 #ifdef __cplusplus
 }
