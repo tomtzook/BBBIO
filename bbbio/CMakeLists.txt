@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5.1)
 
-project(bbbio C)
+set(CMAKE_C_COMPILER arm-linux-gnueabihf-gcc)
 
 set(CMAKE_C_STANDARD 11)
 
