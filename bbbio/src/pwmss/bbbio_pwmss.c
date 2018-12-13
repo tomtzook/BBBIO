@@ -1,7 +1,7 @@
 #include <bbbio_pwmss.h>
 #include <bbbio_debug.h>
 
-#include "hw.h"
+#include "../hw.h"
 
 
 const int clkdiv_vals[] = {1, 2, 4, 8, 16, 32, 64, 128};

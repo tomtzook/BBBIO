@@ -1,10 +1,10 @@
-#include "hw.h"
-
-#include "bbbio_gpio_consts.h"
-
 #include <bbbio_consts.h>
 #include <bbbio_debug.h>
 #include <bbbio_gpio.h>
+
+#include "bbbio_gpio_consts.h"
+
+#include "../hw.h"
 
 
 #define GPIO_MODULE(header, pin) bbbio_module_mapping[header][pin - 1]

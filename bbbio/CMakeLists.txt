@@ -15,19 +15,19 @@ set(BBBIO_HEADERS
         include/bbbio_debug.h
         include/bbbio_rc.h
         include/bbbio_consts.h
-        src/bbbio_gpio_consts.h
-        src/bbbio_pwmss_consts.h
-        src/bbbio_pwmss_ctrl.h
+        src/gpio/bbbio_gpio_consts.h
+        src/pwmss/bbbio_pwmss_consts.h
+        src/pwmss/bbbio_pwmss_ctrl.h
         src/bbbio_util.h
         src/hw.h)
 
 set(BBBIO_SOURCES
         src/bbbio.c
-        src/bbbio_gpio.c
-        src/bbbio_pwmss.c
-        src/bbbio_gpio_consts.c
-        src/bbbio_pwmss_consts.c
-        src/bbbio_pwmss_ctrl.c
+        src/gpio/bbbio_gpio.c
+        src/pwmss/bbbio_pwmss.c
+        src/gpio/bbbio_gpio_consts.c
+        src/pwmss/bbbio_pwmss_consts.c
+        src/pwmss/bbbio_pwmss_ctrl.c
         )
 
 add_library(bbbio

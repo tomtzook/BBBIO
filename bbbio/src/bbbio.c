@@ -9,9 +9,9 @@
 #include <bbbio_consts.h>
 #include <bbbio.h>
 
-#include "bbbio_gpio_consts.h"
-#include "bbbio_pwmss_consts.h"
-#include "bbbio_pwmss_ctrl.h"
+#include "gpio/bbbio_gpio_consts.h"
+#include "pwmss/bbbio_pwmss_consts.h"
+#include "pwmss/bbbio_pwmss_ctrl.h"
 #include "bbbio_util.h"
 #include "hw.h"
 

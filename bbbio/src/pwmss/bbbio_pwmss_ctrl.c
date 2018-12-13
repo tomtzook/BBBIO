@@ -1,7 +1,9 @@
-#include "bbbio_debug.h"
-#include "hw.h"
+#include <bbbio_debug.h>
+
 #include "bbbio_pwmss_consts.h"
 #include "bbbio_pwmss_ctrl.h"
+
+#include "../hw.h"
 
 
 static int module_clk_check(bbbio_t* bbbio, bbbio_pwmss_module_t module){
