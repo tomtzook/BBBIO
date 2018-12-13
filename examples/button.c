@@ -12,6 +12,8 @@ int main(){
         return 1;
     }
 
+    int return_code = 0;
+
     const bbbio_gpio_header_t header = BBB_P8_HEADER;
     const bbbio_gpio_pin_t pin = 8;
 
@@ -22,6 +24,7 @@ int main(){
     bbbio_gpio_value_t button_value;
     if (bbbio_gpio_get(&bbbio, header, pin, &button_value) != SUCCESS) {
         printf("error getting pin value \n");
+        return_code = 1;
         goto free;
     }
 
@@ -32,6 +35,6 @@ free:
     // freeing the BBBIO context, releasing resources
     bbbio_free(&bbbio);
 
-    return 0;
+    return return_code;
 }
 
