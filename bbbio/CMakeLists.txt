@@ -6,7 +6,9 @@ set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
 
-set(HEADERS
+set(BBBIO_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+set(BBBIO_HEADERS
         include/bbbio.h
         include/bbbio_gpio.h
         include/bbbio_debug.h
@@ -16,7 +18,7 @@ set(HEADERS
         src/bbbio_consts.h
         src/hw.h)
 
-set(SOURCES
+set(BBBIO_SOURCES
         src/bbbio.c
         src/bbbio_gpio.c
         src/bbbio_gpio_consts.c
@@ -24,10 +26,10 @@ set(SOURCES
 
 add_library(bbbio
         SHARED
-        ${HEADERS}
-        ${SOURCES})
+        ${BBBIO_HEADERS}
+        ${BBBIO_SOURCES})
 
 add_library(bbbio-static
         STATIC
-        ${HEADERS}
-        ${SOURCES})
+        ${BBBIO_HEADERS}
+        ${BBBIO_SOURCES})
