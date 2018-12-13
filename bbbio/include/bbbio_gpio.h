@@ -1,8 +1,9 @@
 #ifndef BBBIO_GPIO_H
 #define BBBIO_GPIO_H
 
-#include "bbbio_rc.h"
 #include <bbbio.h>
+
+#include "bbbio_rc.h"
 
 #ifdef __cplusplus
 extern "C"{

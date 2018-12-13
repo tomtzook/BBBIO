@@ -2,7 +2,7 @@
 #define BBBIO_H_
 
 #include "bbbio_rc.h"
-#include "bbbio_gpio_consts.h"
+#include "bbbio_consts.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -13,7 +13,7 @@ typedef struct bbbio_context {
 
     volatile unsigned int* cm_addr;
     volatile unsigned int* cm_per_addr;
-    volatile unsigned int* gpio_module_addr[BBB_GPIO_MODULES_COUNT];
+    volatile unsigned int* gpio_module_addr[BBBIO_GPIO_MODULES_COUNT];
 } bbbio_t;
 
 bbbio_rc_t bbbio_init(bbbio_t* bbbio);

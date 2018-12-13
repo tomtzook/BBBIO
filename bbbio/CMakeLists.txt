@@ -13,9 +13,9 @@ set(BBBIO_HEADERS
         include/bbbio_gpio.h
         include/bbbio_debug.h
         include/bbbio_rc.h
-        include/bbbio_gpio_consts.h
+        include/bbbio_consts.h
+        src/bbbio_gpio_consts.h
         src/bbbio_util.h
-        src/bbbio_consts.h
         src/hw.h)
 
 set(BBBIO_SOURCES

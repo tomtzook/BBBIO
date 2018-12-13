@@ -5,6 +5,10 @@
  * GPIO
 \***********************************************************************/
 
+#define BBBIO_GPIO_MODULES_COUNT (4)
+#define BBBIO_GPIO_HEADERS_COUNT (2)
+#define BBBIO_GPIO_HEADER_PIN_COUNT (46)
+
 #define BBBIO_GPIO0_ADDR	        (0x44e07000)
 #define BBBIO_GPIO1_ADDR 	        (0x4804c000)
 #define BBBIO_GPIO2_ADDR 	        (0x481ac000)

@@ -6,10 +6,11 @@
 
 #include <bbbio_debug.h>
 #include <bbbio_rc.h>
+#include <bbbio_consts.h>
 #include <bbbio.h>
 
+#include "bbbio_gpio_consts.h"
 #include "bbbio_util.h"
-#include "bbbio_consts.h"
 
 
 #define ERROR_MAP_FAILED(ptr, error_goto, return_code_var, return_code, error_msg, error_args...) \
@@ -39,7 +40,7 @@ bbbio_rc_t bbbio_init(bbbio_t* bbbio) {
 	bbbio->cm_addr = mmap(0, BBBIO_CONTROL_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, bbbio->mem_fd, BBBIO_CONTROL_MODULE);
 	ERROR_MAP_FAILED(bbbio->cm_addr, free, return_code, EMAP, "BBBIO failed to map control module: %s \n", strerror(errno));
 
-	for (size_t i = 0; i < BBB_GPIO_MODULES_COUNT; ++i) {
+	for (size_t i = 0; i < BBBIO_GPIO_MODULES_COUNT; ++i) {
 		bbbio->gpio_module_addr[i] = mmap(0, BBBIO_GPIO_LEN, PROT_READ | PROT_WRITE, MAP_SHARED, bbbio->mem_fd, bbb_gpio_addr_offset[i]);
         ERROR_MAP_FAILED(bbbio->gpio_module_addr[i], free, return_code, EMAP, "BBBIO failed to map gpio %zu: %s \n", i, strerror(errno));
 	}
@@ -51,7 +52,7 @@ free:
 }
 
 void bbbio_free(bbbio_t* bbbio) {
-    for (size_t i = 0; i < BBB_GPIO_MODULES_COUNT; ++i) {
+    for (size_t i = 0; i < BBBIO_GPIO_MODULES_COUNT; ++i) {
         MUNMAP(bbbio->gpio_module_addr[i], BBBIO_GPIO_LEN);
     }
 

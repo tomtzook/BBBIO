@@ -1,9 +1,11 @@
 #include "hw.h"
-#include "bbbio_consts.h"
 
-#include <bbbio_gpio_consts.h>
+#include "bbbio_gpio_consts.h"
+
+#include <bbbio_consts.h>
 #include <bbbio_debug.h>
 #include <bbbio_gpio.h>
+
 
 #define GPIO_MODULE(header, pin) bbb_module_mapping[header][pin - 1]
 #define GPIO_PIN(header, pin) bbb_pin_mapping[header][pin - 1]
@@ -16,7 +18,7 @@
 
 
 static char bbbio_gpio_valid(bbbio_gpio_pin_t pin){
-    return pin > 0 && pin <= BBB_HEADER_PIN_COUNT;
+    return pin > 0 && pin <= BBBIO_GPIO_HEADER_PIN_COUNT;
 }
 
 bbbio_rc_t bbbio_gpio_setdir(bbbio_t* bbbio, bbbio_gpio_header_t header, bbbio_gpio_pin_t pin, bbbio_gpio_dir_t dir) {
