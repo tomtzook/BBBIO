@@ -39,3 +39,8 @@ add_library(bbbio-static
         STATIC
         ${BBBIO_HEADERS}
         ${BBBIO_SOURCES})
+        
+add_library(bbbio-obj
+        OBJECT
+        ${BBBIO_HEADERS}
+        ${BBBIO_SOURCES})
